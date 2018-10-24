@@ -1,33 +1,49 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <mat-toolbar style="height: 80px;">
-  <mat-chip-list>
-    <mat-chip *ngFor="let filter of filters" [selected]="filter.selected"  (click)="filter.selected = !filter.selected">{{filter.name}}</mat-chip>
+  <mat-chip-list [multiple]="true">
+    <mat-chip *ngFor="let filter of filters" [selected]="filter.selected" (click)="changeChipState(filter)">{{filter.name}}</mat-chip>
   </mat-chip-list>  
   <mat-form-field style="padding-left: 20px; padding-right: 10px;">
       <input type="number" min="1" max="52" [(ngModel)]="selectedNumberOfCards" matInput placeholder="# of Cards">    
   </mat-form-field>
 
-  <mat-form-field style="padding-left: 10px; padding-right: 10px;">
-      <mat-select placeholder="Min card Value" [(ngModel)]="selectedMinValue" name="minCardVal">
+  <!-- <mat-form-field style="padding-left: 10px; padding-right: 10px;">
+      <mat-select placeholder="Min card Value" [(ngModel)]="selectedMinValue" name="minCardVal" (selectionChange)="changeMinVal($event)">
         <mat-option *ngFor="let card of ddCards" [value]="card.value">
           {{card.viewValue}}
         </mat-option>
       </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <mat-form-field style="padding-left: 10px; padding-right: 10px;">
+    <mat-select placeholder="Min card Value" [(ngModel)]="selectedMinValue" name="minCardVal" (selectionChange)="updateFilteredCards()">
+      <mat-option *ngFor="let card of ddCards" [value]="card.value">
+        {{card.viewValue}}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+
+  <!-- <mat-form-field style="padding-left: 10px; padding-right: 10px;">
       <mat-select placeholder="Max card Value" [(ngModel)]="selectedMaxValue" name="maxCardVal">
         <mat-option *ngFor="let card of ddCards" [value]="card.value">
           {{card.viewValue}}
         </mat-option>
       </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
+
+  <mat-form-field style="padding-left: 10px; padding-right: 10px;">
+    <mat-select placeholder="Max card Value" [(ngModel)]="selectedMaxValue" name="maxCardVal" (selectionChange)="updateFilteredCards()">
+      <mat-option *ngFor="let card of ddCards" [value]="card.value">
+        {{card.viewValue}}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
 
 </mat-toolbar>
 
 <div class="flex-container">
-    <img class="flex-item" *ngFor="let card of cards"  src={{card.srcImage}} >
+    <img class="flex-item" *ngFor="let card of cardsFiltered"  src={{card.srcImage}} >
 </div> 
 
 

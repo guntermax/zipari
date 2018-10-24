@@ -3,17 +3,25 @@ import { dropDown } from './dropDown';
 import { Filter } from './models/filter';
 import { Card } from './models/card';
 
+
+
 @Component({
   selector: 'zipari-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor() {
+   
+  }
+  
   title = 'zipari';
 
-  selectedMinValue: number;
-  selectedMaxValue: number;
+  selectedMinValue: number = 0;
+  selectedMaxValue: number = 15;
   selectedNumberOfCards: number;
+  cardsFiltered:  Card[] = [];
 
   filters : Filter[] = [
     {name: "Spade", selected: false},
@@ -55,6 +63,24 @@ export class AppComponent {
     {value: 4, suit: "Spade", srcImage: "assets/4_of_spades.png"}
 
   ]
+
+  changeChipState(selectedFilter: Filter) {
+    selectedFilter.selected = !selectedFilter.selected;
+    this.updateFilteredCards();
+  }
+
+  updateFilteredCards(){
+    this.cardsFiltered = [];
+    this.filters.forEach(filter => {
+      this.cards.forEach(card => {
+        if (filter.selected) {
+          if(card.suit === filter.name && card.value >= this.selectedMinValue  && card.value <= this.selectedMaxValue) {
+            this.cardsFiltered.push(card)
+          }
+        }
+      })
+    })
+  }
 }
 
 

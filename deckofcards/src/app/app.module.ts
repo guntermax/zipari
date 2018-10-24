@@ -5,10 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material/material.module';
+import { CardPipe } from './pipes/card.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CardPipe
   ],
   imports: [
     BrowserModule,
