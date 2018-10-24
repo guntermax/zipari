@@ -1,12 +1,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <mat-toolbar style="height: 80px;">
-  <!-- <mat-chip-list>
-    <mat-chip color="primary">Spade</mat-chip>
-    <mat-chip color="primary">Heart</mat-chip>
-    <mat-chip color="primary">Club</mat-chip>
-    <mat-chip color="primary">Diamond</mat-chip>
-  </mat-chip-list> -->
   <mat-chip-list>
     <mat-chip *ngFor="let filter of filters" [selected]="filter.selected"  (click)="filter.selected = !filter.selected">{{filter.name}}</mat-chip>
   </mat-chip-list>  
@@ -16,7 +10,7 @@
 
   <mat-form-field style="padding-left: 10px; padding-right: 10px;">
       <mat-select placeholder="Min card Value" [(ngModel)]="selectedMinValue" name="minCardVal">
-        <mat-option *ngFor="let card of cards" [value]="card.value">
+        <mat-option *ngFor="let card of ddCards" [value]="card.value">
           {{card.viewValue}}
         </mat-option>
       </mat-select>
@@ -24,11 +18,16 @@
 
   <mat-form-field style="padding-left: 10px; padding-right: 10px;">
       <mat-select placeholder="Max card Value" [(ngModel)]="selectedMaxValue" name="maxCardVal">
-        <mat-option *ngFor="let card of cards" [value]="card.value">
+        <mat-option *ngFor="let card of ddCards" [value]="card.value">
           {{card.viewValue}}
         </mat-option>
       </mat-select>
   </mat-form-field>
 
 </mat-toolbar>
+
+<div class="flex-container">
+    <img class="flex-item" *ngFor="let card of cards"  src={{card.srcImage}} >
+</div> 
+
 
