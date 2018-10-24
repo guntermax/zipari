@@ -8,13 +8,6 @@
       <input type="number" min="1" max="52" [(ngModel)]="selectedNumberOfCards" matInput placeholder="# of Cards">    
   </mat-form-field>
 
-  <!-- <mat-form-field style="padding-left: 10px; padding-right: 10px;">
-      <mat-select placeholder="Min card Value" [(ngModel)]="selectedMinValue" name="minCardVal" (selectionChange)="changeMinVal($event)">
-        <mat-option *ngFor="let card of ddCards" [value]="card.value">
-          {{card.viewValue}}
-        </mat-option>
-      </mat-select>
-  </mat-form-field> -->
 
   <mat-form-field style="padding-left: 10px; padding-right: 10px;">
     <mat-select placeholder="Min card Value" [(ngModel)]="selectedMinValue" name="minCardVal" (selectionChange)="updateFilteredCards()">
@@ -22,15 +15,7 @@
         {{card.viewValue}}
       </mat-option>
     </mat-select>
-</mat-form-field>
-
-  <!-- <mat-form-field style="padding-left: 10px; padding-right: 10px;">
-      <mat-select placeholder="Max card Value" [(ngModel)]="selectedMaxValue" name="maxCardVal">
-        <mat-option *ngFor="let card of ddCards" [value]="card.value">
-          {{card.viewValue}}
-        </mat-option>
-      </mat-select>
-  </mat-form-field> -->
+  </mat-form-field>
 
   <mat-form-field style="padding-left: 10px; padding-right: 10px;">
     <mat-select placeholder="Max card Value" [(ngModel)]="selectedMaxValue" name="maxCardVal" (selectionChange)="updateFilteredCards()">
@@ -39,11 +24,22 @@
       </mat-option>
     </mat-select>
 </mat-form-field>
-
+<span class="spacer"></span>
+<button mat-raised-button color="primary" (click)="draw()" [disabled]="cardsFiltered.length == 0" >Draw !</button>
 </mat-toolbar>
 
 <div class="flex-container">
     <img class="flex-item" *ngFor="let card of cardsFiltered"  src={{card.srcImage}} >
-</div> 
+</div>
+<div class="flex-container">
+<mat-card class="flex-item-card">
+  <mat-card-header>
+    <mat-card-title>Drawn Cards</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+   <mat-card-content class="flex-container">
+          <img class="flex-item" *ngFor="let card of cardsToDisplay"  src={{card.srcImage}} >  
+  </mat-card-content>
+</mat-card>
 
-
+</div>
